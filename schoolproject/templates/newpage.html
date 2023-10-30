@@ -1,0 +1,191 @@
+<!-- myapp/templates/myapp/show_form.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        // JavaScript function to populate the Courses dropdown based on the selected Department
+        function updateCourses() {
+            var department = document.getElementById("department").value;
+            var courses = document.getElementById("courses");
+
+            // Clear the current options
+            courses.innerHTML = "";
+
+            // Define courses based on the selected department
+            var courseOptions = {
+                "": ["-- Select a Department First --"],
+                "Commerce": ["-- Select Course --", "BBA", "BCom"],
+                "Science": ["-- Select Course --", "Biology", "Chemistry", "Physics"],
+                // Add more departments and courses as needed
+            };
+
+            var options = courseOptions[department] || [];
+            options.forEach(function(option) {
+                var courseOption = document.createElement("option");
+                courseOption.value = option;
+                courseOption.text = option;
+                courses.appendChild(courseOption);
+            });
+        }
+           function showSuccessMessage() {
+            var formContainer = document.getElementById('formContainer');
+            formContainer.style.display = 'none';
+
+            var successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'block';
+        }
+
+        function submitForm(event) {
+            event.preventDefault(); // Prevent the default form submission behavior
+
+            // Additional validation can be added here if needed
+
+            // Show the success message
+            showSuccessMessage();
+        }
+    </script>
+        <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        #formContainer {
+            display: none;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        input[type="email"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        input[type="submit"],
+        input[type="button"] {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        input[type="submit"]:hover,
+        input[type="button"]:hover {
+            background-color: #45a049;
+        }
+
+        #successMessage {
+            display: none;
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #successMessage a {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <button id="showFormButton" style="background-color: #4CAF50; color: #fff; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">
+    Show Form
+</button>
+
+
+    <form id="formContainer" style="display: none;">
+
+     <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br>
+
+        <label for="dob">DOB:</label>
+        <input type="date" id="dob" name="dob"><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age"><br>
+
+        <label for="gender">Gender:</label>
+        <input type="radio" id="gender" name="gender" value="Male"> Male
+        <input type="radio" id="gender" name="gender" value="Female"> Female
+        <input type="radio" id="gender" name="gender" value="Other"> Other<br>
+
+        <label for="phone_number">Phone Number:</label>
+        <input type="tel" id="phone_number" name="phone_number"><br>
+
+        <label for="mail_id">Mail ID:</label>
+        <input type="email" id="mail_id" name="mail_id"><br>
+
+        <label for="address">Address:</label>
+        <textarea id="address" name="address"></textarea><br>
+
+        <label for="department">Department:</label>
+        <select id="department" name="department" onchange="updateCourses()">
+            <option value="">-- Select Department --</option>
+            <option value="Commerce">Commerce</option>
+            <option value="Science">Science</option>
+            <!-- Add more departments as needed -->
+        </select><br>
+
+        <label for="courses">Courses:</label>
+        <select id="courses" name="courses">
+            <option value="">-- Select a Department First --</option>
+        </select><br>
+
+        <label for="purpose">Purpose:</label>
+        <select id="purpose" name="purpose">
+            <option value="Enquiry">For Enquiry</option>
+            <option value="Place Order">Place Order</option>
+            <option value="Return">Return</option>
+            <!-- Add more purposes as needed -->
+        </select><br>
+
+        <label>Materials Provided:</label><br>
+        <input type="checkbox" id="materials" name="materials" value="Debit Note Book"> Debit Note Book<br>
+        <input type="checkbox" id="materials" name="materials" value="Pen"> Pen<br>
+        <input type="checkbox" id="materials" name="materials" value="Exam Papers"> Exam Papers<br>
+        <!-- Add more materials as needed -->
+
+        <br><br>
+        <input type="submit" value="Submit" onclick="submitForm(event)">
+        <input type="button" value="Logout" onclick="window.location.href='logout'">
+    </form>
+
+<div id="successMessage" style="display: none;">
+        <p>Order Confirmed</p>
+        <a href="/">Return to Home</a>
+    </div>
+    <script>
+        document.getElementById('showFormButton').addEventListener('click', function() {
+            var formContainer = document.getElementById('formContainer');
+            formContainer.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
